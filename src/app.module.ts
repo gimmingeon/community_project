@@ -7,6 +7,9 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { PostModule } from './post/post.module';
+import { PostCommentModule } from './post-comment/post-comment.module';
+import { ChatModule } from './chat/chat.module';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -47,6 +50,9 @@ const typeOrmModuleOptions = {
     TypeOrmModule.forRootAsync(typeOrmModuleOptions),
     AuthModule,
     UserModule,
+    PostModule,
+    PostCommentModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],

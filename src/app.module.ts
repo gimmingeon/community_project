@@ -2,15 +2,17 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import Joi from 'joi';
+import * as Joi from 'joi';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 const typeOrmModuleOptions = {
   useFactory: async (
     configService: ConfigService,
   ): Promise<TypeOrmModuleOptions> => ({
+    namingStrategy : new SnakeNamingStrategy(),
     type: 'mysql',
     username: configService.get('DB_USERNAME'),
     password: configService.get('DB_PASSWORD'),
@@ -32,8 +34,8 @@ const typeOrmModuleOptions = {
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        JWT_ACCESS_TOKEN_SECRET: Joi.string().required(),
-        JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),
+        // JWT_ACCESS_TOKEN_SECRET: Joi.string().required(),
+        // JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),
         DB_USERNAME: Joi.string().required(),
         DB_PASSWORD: Joi.string().required(),
         DB_HOST: Joi.string().required(),

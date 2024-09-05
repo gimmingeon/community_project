@@ -1,10 +1,19 @@
 import { IsEmail, IsEnum } from "class-validator";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from "typeorm";
 import { Role } from "../type/userRole.type";
+import { Post } from "../../post/entities/post.entity";
+import { PostComment } from "src/post-comment/entities/post-comment.entity";
 
-@Entity({name: "users"})
+@Entity({ name: "users" })
 export class User {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({ unsigned: true })
     id: number;
 
     @IsEmail({}, { message: "이메일 형식에 맞지 않습니다." })
@@ -29,4 +38,10 @@ export class User {
 
     @UpdateDateColumn({ type: 'timestamp', nullable: false })
     updated_at: Date;
+
+    @OneToMany(() => Post, (post) => post.user, {cascade:true})
+    post: Post[];
+
+    @OneToMany(() => PostComment, (postComment) => postComment.user, {cascade: true})
+    postComment: PostComment[];
 }

@@ -8,7 +8,7 @@ import { PostComment } from 'src/post-comment/entities/post-comment.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Post, PostComment])
+    TypeOrmModule.forFeature([User])
   ],
   controllers: [UserController],
   providers: [UserService],

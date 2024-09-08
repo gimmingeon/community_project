@@ -1,4 +1,4 @@
-import { IsEmail, IsEnum } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty, IsString, IsStrongPassword } from "class-validator";
 import {
     Column,
     CreateDateColumn,
@@ -17,12 +17,17 @@ export class User {
     id: number;
 
     @IsEmail({}, { message: "이메일 형식에 맞지 않습니다." })
+    @IsNotEmpty()
     @Column({ type: "varchar", unique: true, nullable: false })
     email: string;
 
+    @IsNotEmpty({message: '비밀번호를 입력해주세요.'})
+    @IsStrongPassword({}, {message: '비밀번호는 영문 알파벳 대,소문자, 숫자, 특수문자를 포함해야 합니다.'})
     @Column({ type: 'varchar', select: false, nullable: false })
     password: string;
 
+    @IsNotEmpty({message: '닉네임을 입력해주세요.'})
+    @IsString()
     @Column({ type: 'varchar', unique: true, nullable: false })
     nickname: string;
 

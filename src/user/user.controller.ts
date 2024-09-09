@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { SignUpDto } from './dto/sign-up.dto';
 
@@ -10,6 +10,6 @@ export class UserController {
   async signUp(@Body() signUpDto: SignUpDto) {
 
     const data = await this.userService.signUp(signUpDto);
-    return {};
+    return {statusCode: HttpStatus.CREATED, message: '회원가입이 되었습니다.', data};
   }
 }

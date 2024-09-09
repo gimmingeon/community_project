@@ -45,6 +45,7 @@ const typeOrmModuleOptions = {
         DB_PORT: Joi.number().required(),
         DB_NAME: Joi.string().required(),
         DB_SYNC: Joi.boolean().required(),
+        PASSWORD_HASH_ROUND: Joi.number().required().default(10)
       }),
     }),
     TypeOrmModule.forRootAsync(typeOrmModuleOptions),
